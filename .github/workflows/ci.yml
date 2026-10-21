@@ -8,7 +8,8 @@ name: Main - CI/CD Lab
 on:
   push:
     # TODO 1: reemplaza CAMBIAR_RAMA por la rama que recibe los merges.
-    branches: [CAMBIAR_RAMA]
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,7 +31,7 @@ jobs:
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    # TODO 2: añade "needs" para que build espere a test.
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - name: Construir imagen localmente
@@ -39,7 +40,7 @@ jobs:
   deploy-staging:
     name: Staging (SIMULACIÓN)
     runs-on: ubuntu-latest
-    # TODO 3: añade "needs" para que staging espere a build.
+    needs: build
     steps:
       - name: Simular despliegue a staging
         run: |
@@ -49,7 +50,7 @@ jobs:
   deploy-production:
     name: Production (SIMULACIÓN)
     runs-on: ubuntu-latest
-    # TODO 4: añade "needs" para que production espere a deploy-staging.
+    needs: deploy-staging
     steps:
       - name: Simular despliegue a producción
         run: |
