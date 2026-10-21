@@ -8,9 +8,10 @@ name: PR - Python Validation
 on:
   pull_request:
     # TODO 1: reemplaza CAMBIAR_RAMA por la rama de destino del PR.
-    branches: [CAMBIAR_RAMA]
+    branches: [main]
     # TODO 2: añade los eventos para actualizar y reabrir un PR.
-    types: [opened]
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
 
 permissions:
   contents: read
